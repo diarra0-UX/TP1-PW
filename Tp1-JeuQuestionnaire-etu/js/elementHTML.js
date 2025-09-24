@@ -5,7 +5,7 @@ Vieille librairie de fonctions de création de balises HTML.
 Il y a mieux dans le fichier "html.js" du formatif 5.
  */
 
-
+const contenu = document.getElementById("contenu");
 
 /**
  * Créer une balise HTML input
@@ -48,4 +48,24 @@ function creerLabel(id, paraFor, value) {
     return lable;
 }
 
+
+
 // ajoutez le code de création d'autres éléments  que vous avez besoin de créer dynamiquement.
+function createPourLire(tagName){
+    const para = document.createElement(tagName);
+    para.innerHTML = "Je vous invite à participer à un petit jeu-questionnaire " +
+        "qui comporte 5 questions choisies au hasard dans un ensenble de questions." +
+        " Chaque bonne réponse vous donne un certain nombre de points." +
+        " À la fin de ce jeu-questionnaire, vous aurez votre résultat final. <br><br>"+
+        " En souhaitant que cela vous plaise! <br><br>"+
+        " Bonne chance ! <br><br>";
+    document.getElementById("contenu").appendChild(para);
+}
+
+
+
+createPourLire("p");
+// Append to another element:
+
+//contenu.innerText = creerLabel("test","test", "numeroun");
+//creerInput("test","checked","numeroun","nanos");
