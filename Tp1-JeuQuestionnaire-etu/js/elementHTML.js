@@ -62,9 +62,19 @@ function createPourLire(tagName){
     document.getElementById("contenu").appendChild(para);
 }
 
+function createButton(id){
+    let button = document.createElement("id");
+
+    if (id !== "") {
+        button.id = id;
+    }
+    return button
+}
+
 
 
 createPourLire("p");
+createButton("button1")
 // Append to another element:
 
 //contenu.innerText = creerLabel("test","test", "numeroun");
