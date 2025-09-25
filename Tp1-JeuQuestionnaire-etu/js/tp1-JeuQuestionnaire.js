@@ -51,7 +51,8 @@ function afficherQuestions() {
 function afficherIntroduction() {
     // Faire l'affichage de la page d'introduction
 
-
+    createPourLire("p");
+    createButton("button1","Commencer","button","butt");
 
 }
 

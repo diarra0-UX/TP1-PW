@@ -78,8 +78,8 @@ function createButton(id, name, type, classe){
 function formQuestion(){}
 
 
-createPourLire("p");
-createButton("button1","Commencer","button","butt");
+
+
 // Append to another element:
 
 //contenu.innerText = creerLabel("test","test", "numeroun");
