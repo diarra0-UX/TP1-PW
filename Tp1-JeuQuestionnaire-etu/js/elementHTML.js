@@ -26,7 +26,7 @@ function creerInput(id, type, name, value = "") {
         input.id = id;
     }
 
-    return input;
+    document.getElementById("contenu").appendChild(input);
 }
 
 /**
@@ -45,7 +45,7 @@ function creerLabel(id, paraFor, value) {
         lable.id = id;
     }
 
-    return lable;
+    document.getElementById("contenu").appendChild(lable);
 }
 
 
@@ -62,20 +62,25 @@ function createPourLire(tagName){
     document.getElementById("contenu").appendChild(para);
 }
 
-function createButton(id){
+function createButton(id, name, type, classe){
     let button = document.createElement("id");
+    button.innerText = name;
+    button.classList.add(classe);
+    button.type = type;
+    button.style.backgroundColor = "#f2b118";
 
     if (id !== "") {
         button.id = id;
     }
-    return button
+    document.getElementById("contenu").appendChild(button);
 }
 
+function formQuestion(){}
 
 
 createPourLire("p");
-createButton("button1")
+createButton("button1","Commencer","button","butt");
 // Append to another element:
 
 //contenu.innerText = creerLabel("test","test", "numeroun");
-//creerInput("test","checked","numeroun","nanos");
+//creerInput("test","checkbox","numeroun","nanos");
