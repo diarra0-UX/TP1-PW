@@ -2,7 +2,7 @@
 
 //Constantes et variables globales
 const NBR_QUESTION_QUIZ = 5;
-
+let poolQuestion = [];
 
 
 
@@ -38,8 +38,9 @@ function afficherResultats() {
  *
  * IMPORTANT : l'appelant doit vérifier s'il y a encore une question à poser
  */
-function afficherQuestions() {
+function afficherQuestion() {
   // Faire l'affichage de la question courante'
+
 
 
 }
@@ -76,7 +77,20 @@ function connecterGestionnaires() {
 
 function init() {
     // Le code qui ne doit être exécuté qu'une seule fois.
+    for(const cle in tabAssQuestions){
+        let questionJson = tabAssQuestions[cle];
+        let ObjetQuestions = new Question(
+            questionJson.question,
+            questionJson.reponse,
+            questionJson.solution,
+            questionJson.valeur,
+            questionJson.reprise
 
+        )
+
+        poolQuestion.push(ObjetQuestions);
+        console.log(poolQuestion);
+    }
 
 }
 
