@@ -51,8 +51,17 @@ function afficherQuestions() {
 function afficherIntroduction() {
     // Faire l'affichage de la page d'introduction
 
-    createPourLire("p");
-    createButton("button1","Commencer","button","butt");
+    createPourLire("hid","p");
+    const button = createButton("button1","Commencer","button","butt");
+    const hidden = document.getElementById("hid");
+    verroulle("verrouiller");
+    button.addEventListener("click", (event) => {
+        if (hidden.style.display === 'inline') {
+            hidden.style.display = 'none';
+        } else {
+            hidden.style.display = 'inline';
+        }
+    })
 
 }
 
@@ -67,6 +76,8 @@ function connecterGestionnaires() {
 
 function init() {
     // Le code qui ne doit être exécuté qu'une seule fois.
+
+
 }
 
 // Connecter les gestionnaires d'événements

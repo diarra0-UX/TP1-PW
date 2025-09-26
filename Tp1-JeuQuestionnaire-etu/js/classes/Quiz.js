@@ -12,7 +12,8 @@ class Quiz {
 
 
     constructor(arrayQuestions, nbrQuestion) {
-
+        this._arrayQuestions = arrayQuestions;
+        this._nbrQuestion = nbrQuestion;
 
 
     }

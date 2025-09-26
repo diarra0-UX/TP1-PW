@@ -46,12 +46,13 @@ function creerLabel(id, paraFor, value) {
     }
 
     document.getElementById("contenu").appendChild(lable);
+    return lable;
 }
 
 
 
 // ajoutez le code de création d'autres éléments  que vous avez besoin de créer dynamiquement.
-function createPourLire(tagName){
+function createPourLire(id,tagName){
     const para = document.createElement(tagName);
     para.innerHTML = "Je vous invite à participer à un petit jeu-questionnaire " +
         "qui comporte 5 questions choisies au hasard dans un ensenble de questions." +
@@ -59,7 +60,11 @@ function createPourLire(tagName){
         " À la fin de ce jeu-questionnaire, vous aurez votre résultat final. <br><br>"+
         " En souhaitant que cela vous plaise! <br><br>"+
         " Bonne chance ! <br><br>";
+    if (id !== "") {
+        para.id = id;
+    }
     document.getElementById("contenu").appendChild(para);
+    return para;
 }
 
 function createButton(id, name, type, classe){
@@ -73,10 +78,26 @@ function createButton(id, name, type, classe){
         button.id = id;
     }
     document.getElementById("contenu").appendChild(button);
+    return button;
 }
 
 function formQuestion(){}
+function verroulle(id){
+    let input = document.createElement("input");
+    let label = creerLabel("test","verrouiller", "Interface verrouillé");
+    input.type = "checkbox";
+    input.name = "verrouille";
+    input.value = "verrouillage";
 
+
+    if (id !== "") {
+        input.id = id;
+    }
+
+
+    document.getElementById('zoneDeDonnees').appendChild(input);
+    document.getElementById('zoneDeDonnees').appendChild(label);
+}
 
 
 
