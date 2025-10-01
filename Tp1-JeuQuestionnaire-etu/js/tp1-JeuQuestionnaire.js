@@ -1,6 +1,4 @@
 "use strict"
-let poolQuestions=[];
-let  quizzCourant ;
 
 //Constantes et variables globales
 const NBR_QUESTION_QUIZ = 5;
@@ -34,8 +32,6 @@ function afficherResultats() {
 
 //Afficchage et gestion de l'application
 
-
-
 /**
  * Préparer, afficher et gérer l'affichage d'une question (nouvelle question courante
  * selon l'objet QuestionnaireQuiz) dans la zone de donnée du DOM
@@ -43,6 +39,7 @@ function afficherResultats() {
  * IMPORTANT : l'appelant doit vérifier s'il y a encore une question à poser
  */
 function afficherQuestions() {
+  // Faire l'affichage de la question courante'
     console.log("✅ afficherQuestions appelée !");
     // Faire l'affichage de la question courante'
     let quizz = quizzCourant;
@@ -60,13 +57,13 @@ function afficherQuestions() {
     let paragraph = document.createElement('p');
     paragraph.textContent = questionCourante.question;
     monDiv.appendChild(h2);
-monDiv.appendChild(paragraph);
+    monDiv.appendChild(paragraph);
     for (let i = 0; i < questionCourante.reponses.length; i++) {
         let textReponse = questionCourante.reponses[i];
         let divReponse = creerCheckbox(i, textReponse, "reponseQuestions" );
         monDiv.appendChild(divReponse);
     }
-console.log(monDiv);
+    console.log(monDiv);
     gererAffichageBoutons({
         boutonValider: true,
         boutonAnnuler: true,
@@ -89,8 +86,8 @@ function afficherIntroduction() {
     verroulle("verrouiller");
     button.addEventListener("click", (event) => {   hidden.style.display = "none"; // on cache l'intro
         afficherQuestions();          // 🔥 on lance la première question
-    });
 
+    });
 }
 function creerBoutonsQuiz() {
     const zone = document.getElementById("contenu"); // ou une autre div si tu veux
@@ -129,14 +126,19 @@ function creerBoutonsQuiz() {
 }
 
 
+
 function connecterGestionnaires() {
-        // Connextez les boutons nécessaires avec les gestionnaires d'événements ici.
+    const valid = document.getElementById("boutonValider");
 
 
+    valid.addEventListener("click", function () {
+
+        alert('Ça marche !');
+    });
 
 }
-
 function init() {
+    // Le code qui ne doit être exécuté qu'une seule fois.
     console.log("🔄 Chargement des questions...");
 
     // Le code qui ne doit être exécuté qu'une seule fois.
@@ -155,18 +157,18 @@ function init() {
 
     console.log("Première question:", poolQuestions[0].question);
     console.log("Ses réponses:", poolQuestions[0].reponses);
-     quizzCourant = new Quiz(poolQuestions, 5); // maintenant seulement
+    quizzCourant = new Quiz(poolQuestions, 5); // maintenant seulement
+
 
 }
 
 // Connecter les gestionnaires d'événements
 init();
+connecterGestionnaires();
 creerBoutonsQuiz();
 
-connecterGestionnaires();
 
 //Point d'entrée
 afficherIntroduction();
+
 console.log(document.getElementById("boutonValider"));
-
-

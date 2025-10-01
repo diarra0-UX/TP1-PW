@@ -101,6 +101,20 @@ function createPourLire(id,tagName){
     return para;
 }
 
+function affichageQuestions(id,tagName){
+    const para = document.createElement(tagName);
+    para.innerHTML = "Question 1:  " +
+        "qui comporte 5 questions choisies au hasard dans un ensenble de questions." +
+        " Chaque bonne réponse vous donne un certain nombre de points." +
+        " À la fin de ce jeu-questionnaire, vous aurez votre résultat final. <br><br>"+
+        " En souhaitant que cela vous plaise! <br><br>";
+    if (id !== "") {
+        para.id = id;
+    }
+    document.getElementById("contenu").appendChild(para);
+    return para;
+}
+
 function createButton(id, name, type, classe){
     let button = document.createElement("id");
     button.innerText = name;
