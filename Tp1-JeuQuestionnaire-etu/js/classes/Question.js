@@ -13,12 +13,12 @@ class Question {
      * @param valeur {number}
      * @param reprise {number}
      */
-    constructor(question, reponses, solution, valeur, reprise) {
+    constructor(question, reponses, solution, valeur) {
         this._question = question;
         this._reponses = reponses;
         this._solution = solution;
         this._valeur = valeur;
-        this._reprise = reprise;
+
 
         //Pour l'expension du programme
         this._essais = 0;

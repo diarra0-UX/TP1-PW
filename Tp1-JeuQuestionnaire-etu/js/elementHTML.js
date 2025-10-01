@@ -48,8 +48,42 @@ function creerLabel(id, paraFor, value) {
     document.getElementById("contenu").appendChild(lable);
     return lable;
 }
+/**
+ * Vider complètement le contenu de la div
+ */
+function viderContenue(){
+    const contenu = document.getElementById("contenu");
+    contenu.innerHTML = "";
+}
+/**
+ * Créer une checkbox avec son label associé dans une div
+ * @param index - Index de la réponse (0-4)
+ * @param texteRepone
+ * @param nomGroupe - Nom commun pour grouper les checkboxes
+ * @returns {HTMLElement} - Div contenant la checkbox et le label
+ */
+function creerCheckbox(index, texteRepone, nomGroupe){
+    const monDiv = document.createElement("contenu");
+    // creeons la checkbox
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = "reponse"+ index;
+    checkbox.name = nomGroupe;
+    checkbox.value = index;
 
+    //creeons le label
+    let label = document.createElement("label");
+    label.htmlFor = "reponse "+ index;
+    label.textContent= texteRepone;
 
+    //ajout au Dom
+    monDiv.appendChild(checkbox);
+    monDiv.appendChild(label);
+
+    let br = document.createElement("br");
+    monDiv.appendChild(br);
+    return monDiv;
+}
 
 // ajoutez le code de création d'autres éléments  que vous avez besoin de créer dynamiquement.
 function createPourLire(id,tagName){
@@ -79,6 +113,18 @@ function createButton(id, name, type, classe){
     }
     document.getElementById("contenu").appendChild(button);
     return button;
+}
+/**
+ * Afficher ou masquer des boutons
+ * @param boutons - Objet avec les IDs des boutons et leur état (true = afficher, false = cacher)
+ */
+function gererAffichageBoutons(boutons) {
+    for (let id in boutons) {
+        let bouton = document.getElementById(id);
+        if (bouton) {
+            bouton.style.display = boutons[id] ? "inline" : "none";
+        }
+    }
 }
 
 function formQuestion(){}

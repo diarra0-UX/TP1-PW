@@ -14,12 +14,56 @@ class Quiz {
     constructor(arrayQuestions, nbrQuestion) {
         this._arrayQuestions = arrayQuestions;
         this._nbrQuestion = nbrQuestion;
-
+        this._indexCourant = 0;
+        this._scoreTotal = 0;
+        this._questionsSelectionnees = this.selectionnerQuestions();
 
     }
 
+    get questionCourante() {
+        return this._questionsSelectionnees[this._indexCourant];
+    }
 
+    get numeroQuestionCourante() {
+        return this._indexCourant + 1; // +1 car index commence à 0
+    }
 
+    get nombreTotalQuestions() {
+        return this._nbrQuestion;
+    }
+
+    get scoreTotal() {
+        return this._scoreTotal;
+    }
+
+    selectionnerQuestions() {
+        let questionsChoisies = [];
+        let disponibles = [...this._arrayQuestions];
+
+        for (let i = 0; i < this._nbrQuestion; i++) {
+            let indexAleatoire = Math.floor(Math.random() * disponibles.length);
+            questionsChoisies.push(disponibles[indexAleatoire]);
+            disponibles.splice(indexAleatoire, 1);
+        }
+
+        return questionsChoisies;
+    }
+
+    questionSuivante() {
+        if (this._indexCourant < this._nbrQuestion - 1) {
+            this._indexCourant++;
+            return true;
+        }
+        return false; // Plus de questions
+    }
+
+    estDerniereQuestion() {
+        return this._indexCourant === this._nbrQuestion - 1;
+    }
+
+    ajouterPoints(points) {
+        this._scoreTotal += points;
+    }
 
 
 
