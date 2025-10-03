@@ -86,7 +86,7 @@ function verifierReponses() {
 
     let resultat;
     let questionCourante = quizzCourant.questionCourante;
-
+    let pointsQuestion = 0;
     if(choixUsers.length === 0){
         alert("Vous devez Choisir au  moins une réponse");
     }else {
@@ -104,13 +104,13 @@ function verifierReponses() {
             spanPoints.textContent = " → " + point+ " pts";
             spanPoints.style.fontWeight = "bold";
             label.appendChild(spanPoints);
-
+            pointsQuestion += point;
+            quizzCourant.ajouterPoints(pointsQuestion);
             checkboxes[i].disabled = true;
         }
 
-        let point = questionCourante.pointsObtenus;
-        quizzCourant.ajouterPoints(questionCourante.valeur);
-        console.log(point);
+
+
         const button = document.getElementById("boutonValider");
         button.style.display = "none";
         const buttonContinue = document.getElementById("boutonContinuer");
