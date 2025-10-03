@@ -1,5 +1,6 @@
 "use strict"
-
+let poolQuestions=[];
+let  quizzCourant;
 //Constantes et variables globales
 const NBR_QUESTION_QUIZ = 5;
 
@@ -89,41 +90,7 @@ function afficherIntroduction() {
 
     });
 }
-function creerBoutonsQuiz() {
-    const zone = document.getElementById("contenu"); // ou une autre div si tu veux
 
-    // Bouton Valider
-    let btnValider = document.createElement("button");
-    btnValider.id = "boutonValider";
-    btnValider.textContent = "Valider";
-    zone.appendChild(btnValider);
-
-    // Bouton Annuler
-    let btnAnnuler = document.createElement("button");
-    btnAnnuler.id = "boutonAnnuler";
-    btnAnnuler.textContent = "Annuler";
-    zone.appendChild(btnAnnuler);
-
-    // Bouton Continuer
-    let btnContinuer = document.createElement("button");
-    btnContinuer.id = "boutonContinuer";
-    btnContinuer.textContent = "Continuer";
-    zone.appendChild(btnContinuer);
-
-    // Bouton Terminer
-    let btnTerminer = document.createElement("button");
-    btnTerminer.id = "boutonTerminer";
-    btnTerminer.textContent = "Terminer";
-    zone.appendChild(btnTerminer);
-
-    // On les cache tous au départ
-    gererAffichageBoutons({
-        boutonValider: false,
-        boutonAnnuler: false,
-        boutonContinuer: false,
-        boutonTerminer: false
-    });
-}
 
 
 
@@ -133,7 +100,7 @@ function connecterGestionnaires() {
 
     valid.addEventListener("click", function () {
 
-        alert('Ça marche !');
+        alert('Vous devez répondre à la question ou abandonner');
     });
 
 }
@@ -165,10 +132,8 @@ function init() {
 // Connecter les gestionnaires d'événements
 init();
 connecterGestionnaires();
-creerBoutonsQuiz();
+
 
 
 //Point d'entrée
 afficherIntroduction();
-
-console.log(document.getElementById("boutonValider"));

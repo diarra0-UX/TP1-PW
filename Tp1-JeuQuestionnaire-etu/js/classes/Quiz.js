@@ -1,6 +1,5 @@
 "use strict";
-let poolQuestions=[];
-let  quizzCourant ;
+
 
 /**
  * Classe permettant de contenir les questions du quiz et d'offrir certains services (délégation)
