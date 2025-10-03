@@ -20,10 +20,7 @@ class Quiz {
 
     }
 
-    get questionCourante() {
-        return this._questionsSelectionnees[this._indexCourant];
-    }
-
+        /* -------getters---------*/
     get numeroQuestionCourante() {
         return this._indexCourant + 1; // +1 car index commence à 0
     }
@@ -35,6 +32,13 @@ class Quiz {
     get scoreTotal() {
         return this._scoreTotal;
     }
+    get indexCourant(){
+        return this._indexCourant;
+    }
+    get questionCourante() {
+        return this._questionsSelectionnees[this._indexCourant];
+    }
+
 
     selectionnerQuestions() {
         let questionsChoisies = [];

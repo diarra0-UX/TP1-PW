@@ -63,7 +63,7 @@ function viderContenue(){
  * @returns {HTMLElement} - Div contenant la checkbox et le label
  */
 function creerCheckbox(index, texteRepone, nomGroupe){
-    const monDiv = document.createElement("contenu");
+    const monDiv = document.createElement("div");
     // creeons la checkbox
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -73,7 +73,7 @@ function creerCheckbox(index, texteRepone, nomGroupe){
 
     //creeons le label
     let label = document.createElement("label");
-    label.htmlFor = "reponse "+ index;
+    label.htmlFor = "reponse"+ index;
     label.textContent= texteRepone;
 
     //ajout au Dom

@@ -11,7 +11,7 @@ class Question {
      * @param reponses {string[]}
      * @param solution {string}
      * @param valeur {number}
-     * @param reprise {number}
+     *
      */
     constructor(question, reponses, solution, valeur) {
         this._question = question;
@@ -42,9 +42,6 @@ class Question {
         return this._valeur;
     }
 
-    get reprise() {
-        return this._reprise;
-    }
 
     get essais() {
         return this._essais;
@@ -70,7 +67,7 @@ class Question {
             };
             coupleRepVal.push(unPaquet);
         }
-        console.log(coupleRepVal);
+
 
         // Mélanger les paquets (algorithme Fisher-Yates)
         for (let i = coupleRepVal.length - 1; i > 0; i--) {

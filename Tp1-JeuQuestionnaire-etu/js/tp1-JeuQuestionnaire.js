@@ -1,22 +1,10 @@
 "use strict"
 let poolQuestions=[];
-let  quizzCourant;
+let  quizzCourant ;
+
 //Constantes et variables globales
 const NBR_QUESTION_QUIZ = 5;
 
-
-
-
-
-
-/**
- * Préparer, afficher et gérer la vérification de la réponse à la question courante.
- * Modifie le DOM en conséquence pour présenter la correction.
- */
-function verifierReponses() {
-
-
-}
 
 /**
  * Préparer, afficher et gérer les résultats du questionnaire.
@@ -40,31 +28,29 @@ function afficherResultats() {
  * IMPORTANT : l'appelant doit vérifier s'il y a encore une question à poser
  */
 function afficherQuestions() {
-  // Faire l'affichage de la question courante'
-    console.log("✅ afficherQuestions appelée !");
-    // Faire l'affichage de la question courante'
-    let quizz = quizzCourant;
 
-    let questionCourante = quizz.questionCourante;
-    console.log(questionCourante);
-    let numeroQuestion = quizz.numeroQuestionCourante;
-    let nombreTotalQuestions = quizz.nombreTotalQuestions;
-    let valeur = questionCourante.valeur;
+    // Faire l'affichage de la question courante'
+    let questionCourante = quizzCourant.questionCourante;
+    let numeroQuestion = quizzCourant.numeroQuestionCourante;
 
     viderContenue();
+    /* ---------Affichage des questions----------*/
     let monDiv = document.getElementById("contenu");
     let h2 = document.createElement('h2');
-    h2.textContent = 'Question ' + numeroQuestion + ' sur ' + nombreTotalQuestions + ' (' + valeur + ' points)';
+    let score = document.createElement('h2');
+    score.textContent = "Score : " +quizzCourant.scoreTotal + "/20";
+    h2.textContent = 'Question ' + numeroQuestion + ' sur ' + NBR_QUESTION_QUIZ + ' (' + questionCourante.valeur + ' points)';
     let paragraph = document.createElement('p');
     paragraph.textContent = questionCourante.question;
     monDiv.appendChild(h2);
+    monDiv.appendChild(score);
     monDiv.appendChild(paragraph);
     for (let i = 0; i < questionCourante.reponses.length; i++) {
         let textReponse = questionCourante.reponses[i];
-        let divReponse = creerCheckbox(i, textReponse, "reponseQuestions" );
+        let divReponse = creerCheckbox(i, textReponse, "reponseQuestions");
         monDiv.appendChild(divReponse);
     }
-    console.log(monDiv);
+
     gererAffichageBoutons({
         boutonValider: true,
         boutonAnnuler: true,
@@ -73,6 +59,87 @@ function afficherQuestions() {
     });
 
 }
+function recupererChoix() {
+    let checkboxes = document.querySelectorAll('input[name="reponseQuestions"]:checked');
+
+    let choixUtilisateur = [];
+
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {  // Si elle est cochée
+            choixUtilisateur.push(parseInt(checkboxes[i].value));
+        }
+    }
+    console.log("Choix de l'utilisateur:", choixUtilisateur);
+    return choixUtilisateur;
+}
+
+
+/**
+ * Préparer, afficher et gérer la vérification de la réponse à la question courante.
+ * Modifie le DOM en conséquence pour présenter la correction.
+ */
+function verifierReponses() {
+
+    let checkboxes = document.getElementsByName("reponseQuestions");
+
+    let choixUsers = recupererChoix();
+
+    let resultat;
+    let questionCourante = quizzCourant.questionCourante;
+
+    if(choixUsers.length === 0){
+        alert("Vous devez Choisir au  moins une réponse");
+    }else {
+        resultat = questionCourante.evaluerReponse(choixUsers);
+
+        for (let i = 0; i < resultat.length; i++) {
+            let couleur = resultat[i].validation;
+            let point = resultat[i].points;
+
+            let label = document.querySelector('label[for="reponse' + i + '"]');
+
+            label.style.color = couleur;
+
+            let spanPoints = document.createElement("span");
+            spanPoints.textContent = " → " + point+ " pts";
+            spanPoints.style.fontWeight = "bold";
+            label.appendChild(spanPoints);
+
+            checkboxes[i].disabled = true;
+        }
+
+        let point = questionCourante.pointsObtenus;
+        quizzCourant.ajouterPoints(questionCourante.valeur);
+        console.log(point);
+        const button = document.getElementById("boutonValider");
+        button.style.display = "none";
+        const buttonContinue = document.getElementById("boutonContinuer");
+        buttonContinue.style.display = "inline";
+        quizzCourant.questionSuivante();
+    }
+
+
+
+}
+
+/**
+ * Préparer, afficher et gérer les résultats du questionnaire.
+ * Prends en compte l'abandon grace à un paramètre évènement ou booléan.
+ *
+ * @param {Event|boolean}
+ */
+function afficherResultats() {
+// afficher le résulat final.
+
+
+}
+
+
+//Afficchage et gestion de l'application
+
+
+
+
 
 /**
  *
@@ -85,10 +152,11 @@ function afficherIntroduction() {
     const button = createButton("button1","Commencer","button","butt");
     const hidden = document.getElementById("hid");
     verroulle("verrouiller");
-    button.addEventListener("click", (event) => {   hidden.style.display = "none"; // on cache l'intro
-        afficherQuestions();          // 🔥 on lance la première question
-
+    button.addEventListener("click", (event) => {
+        hidden.style.display = "none"; // on cache l'intro
+        afficherQuestions();          // on lance la première question
     });
+    console.log("hey");
 }
 
 
@@ -96,13 +164,25 @@ function afficherIntroduction() {
 
 function connecterGestionnaires() {
     const valid = document.getElementById("boutonValider");
-
+    const continuer = document.getElementById("boutonContinuer");
+    const annuler = document.getElementById("boutonAnnuler");
 
     valid.addEventListener("click", function () {
-
-        alert('Vous devez répondre à la question ou abandonner');
+    verifierReponses();
+       // alert('Ça marche !');
     });
+    if( !quizzCourant.estDerniereQuestion()){
 
+    continuer.addEventListener("click", function (){
+            afficherQuestions();
+
+    })
+
+}//else{
+//         continuer.style.display= "none";
+//         annuler.style.display = "none";
+//     }
+    console.log(quizzCourant.indexCourant);
 }
 function init() {
     // Le code qui ne doit être exécuté qu'une seule fois.
@@ -118,22 +198,24 @@ function init() {
             questionJson.valeur
 
         )
+        objetQuestion.melangerReponses();
         poolQuestions.push(objetQuestion);
     }
     console.log(`${poolQuestions.length} questions chargées dans le pool`);
 
     console.log("Première question:", poolQuestions[0].question);
     console.log("Ses réponses:", poolQuestions[0].reponses);
-    quizzCourant = new Quiz(poolQuestions, 5); // maintenant seulement
+     quizzCourant = new Quiz(poolQuestions, NBR_QUESTION_QUIZ); // maintenant seulement
 
 
 }
 
 // Connecter les gestionnaires d'événements
 init();
-connecterGestionnaires();
 
+connecterGestionnaires();
 
 
 //Point d'entrée
 afficherIntroduction();
+
