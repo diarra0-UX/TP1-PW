@@ -14,7 +14,10 @@ const NBR_QUESTION_QUIZ = 5;
  */
 function afficherResultats() {
 // afficher le résulat final.
-
+    let monDiv = document.getElementById("contenu");
+    const ret = document.createElement("p");
+    ret.innerHTML = "test";
+    monDiv.appendChild(ret);
 
 }
 
@@ -56,7 +59,16 @@ function afficherQuestions() {
         let textReponse = questionCourante.reponses[i];
         let divReponse = creerCheckbox(i, textReponse, "reponseQuestions");
         divResp.appendChild(divReponse);
+
     }
+    //if(numeroQuestion > NBR_QUESTION_QUIZ){
+  //      document.getElementById("displayquest").style.display = "none";
+   //     document.getElementById("boutonValider").style.display = "none";
+  //      document.getElementById("boutonAnnuler").style.display = "none";
+   //     document.getElementById("respon").style.display = "none";
+  //      afficherResultats();
+  //  }
+
 
     gererAffichageBoutons({
         boutonValider: true,
@@ -111,7 +123,8 @@ function verifierReponses() {
             spanPoints.textContent = " → " + point+ " pts";
             spanPoints.style.fontWeight = "bold";
             label.appendChild(spanPoints);
-            pointsQuestion += point;
+
+            pointsQuestion += parseFloat(point);
             quizzCourant.ajouterPoints(pointsQuestion);
             checkboxes[i].disabled = true;
         }
