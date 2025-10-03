@@ -36,19 +36,26 @@ function afficherQuestions() {
     viderContenue();
     /* ---------Affichage des questions----------*/
     let monDiv = document.getElementById("contenu");
+    let divQuest = document.createElement("div");
+    let divResp = document.createElement("div");
     let h2 = document.createElement('h2');
-    let score = document.createElement('h2');
-    score.textContent = "Score : " +quizzCourant.scoreTotal + "/20";
+    let score = document.createElement('p');
+    divQuest.id = "displayquest";
+    divResp.id = "respon";
+    score.id = "score";
+    score.textContent = quizzCourant.scoreTotal + " / 10";
     h2.textContent = 'Question ' + numeroQuestion + ' sur ' + NBR_QUESTION_QUIZ + ' (' + questionCourante.valeur + ' points)';
     let paragraph = document.createElement('p');
     paragraph.textContent = questionCourante.question;
-    monDiv.appendChild(h2);
-    monDiv.appendChild(score);
-    monDiv.appendChild(paragraph);
+    monDiv.appendChild(divQuest);
+    monDiv.appendChild(divResp);
+    divQuest.appendChild(h2);
+    divQuest.appendChild(score);
+    divQuest.appendChild(paragraph);
     for (let i = 0; i < questionCourante.reponses.length; i++) {
         let textReponse = questionCourante.reponses[i];
         let divReponse = creerCheckbox(i, textReponse, "reponseQuestions");
-        monDiv.appendChild(divReponse);
+        divResp.appendChild(divReponse);
     }
 
     gererAffichageBoutons({
@@ -122,17 +129,7 @@ function verifierReponses() {
 
 }
 
-/**
- * Préparer, afficher et gérer les résultats du questionnaire.
- * Prends en compte l'abandon grace à un paramètre évènement ou booléan.
- *
- * @param {Event|boolean}
- */
-function afficherResultats() {
-// afficher le résulat final.
 
-
-}
 
 
 //Afficchage et gestion de l'application
@@ -151,7 +148,7 @@ function afficherIntroduction() {
     createPourLire("hid","p");
     const button = createButton("button1","Commencer","button","butt");
     const hidden = document.getElementById("hid");
-    verroulle("verrouiller");
+
     button.addEventListener("click", (event) => {
         hidden.style.display = "none"; // on cache l'intro
         afficherQuestions();          // on lance la première question
@@ -178,11 +175,22 @@ function connecterGestionnaires() {
 
     })
 
-}//else{
-//         continuer.style.display= "none";
-//         annuler.style.display = "none";
-//     }
-    console.log(quizzCourant.indexCourant);
+
+
+    }//else{
+    //         continuer.style.display= "none";
+    //         annuler.style.display = "none";
+    //     }
+
+    annuler.addEventListener("click",  () => {
+        document.getElementById("displayquest").style.display = "none";
+        valid.style.display = "none";
+        annuler.style.display = "none";
+        document.getElementById("respon").style.display = "none";
+        afficherIntroduction();
+    })
+        console.log(quizzCourant.indexCourant);
+
 }
 function init() {
     // Le code qui ne doit être exécuté qu'une seule fois.
@@ -207,7 +215,7 @@ function init() {
     console.log("Ses réponses:", poolQuestions[0].reponses);
      quizzCourant = new Quiz(poolQuestions, NBR_QUESTION_QUIZ); // maintenant seulement
 
-
+    verroulle("verrouiller");
 }
 
 // Connecter les gestionnaires d'événements

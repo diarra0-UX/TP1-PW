@@ -53,9 +53,25 @@ legend {
     border-radius: 5px 20px;
 }
 
-h1, h3{
+h1, h2, h3{
     color: darkorange;
     filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.5));
+}
+
+#score{
+    border-style: solid;
+    border-width: 2px;
+    color: darkorange;
+    filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.5));
+    font-size: 50px;
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    text-align: right;
+    background-color: black;
+    border-color: darkorange;
+    padding: 30px 30px;
+    border-radius : 55px 55px 55px 55px;
 }
 
 button {
