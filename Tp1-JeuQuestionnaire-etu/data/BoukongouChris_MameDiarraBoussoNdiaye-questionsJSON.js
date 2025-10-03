@@ -63,7 +63,7 @@ let tabAssQuestions =
                 "un langage côté serveur",
                 "une langue venant indonésie",
                 "une version soft de Java",
-                "Un langage compilé",
+                "un langage compilé",
             ],
             "solution": [ 1,0,0,0,0],
             "valeur": 1,
