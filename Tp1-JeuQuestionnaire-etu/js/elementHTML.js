@@ -141,7 +141,7 @@ function gererAffichageBoutons(boutons) {
     }
 }
 
-function formQuestion(){}
+
 function verroulle(id){
     let input = document.createElement("input");
     let label = creerLabel("test","verrouiller", "Interface verrouillé");

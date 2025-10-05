@@ -103,13 +103,13 @@ function verifierReponses() {
 
     let choixUsers = recupererChoix();
 
-    let resultat;
-    let questionCourante = quizzCourant.questionCourante;
-    let pointsQuestion = 0;
     if(choixUsers.length === 0){
         alert("Vous devez Choisir au  moins une réponse");
-    }else {
-        resultat = questionCourante.evaluerReponse(choixUsers);
+        return;
+    }
+
+    let questionCourante = quizzCourant.questionCourante;
+    let resultat = questionCourante.evaluerReponse(choixUsers);
 
         for (let i = 0; i < resultat.length; i++) {
             let couleur = resultat[i].validation;
@@ -123,31 +123,42 @@ function verifierReponses() {
             spanPoints.textContent = " → " + point+ " pts";
             spanPoints.style.fontWeight = "bold";
             label.appendChild(spanPoints);
-
-            pointsQuestion += parseFloat(point);
-            quizzCourant.ajouterPoints(pointsQuestion);
             checkboxes[i].disabled = true;
         }
 
+        quizzCourant.ajouterPoints(questionCourante.pointsObtenus);
 
+    // Mettre à jour le score affiché
+    document.getElementById("score").textContent = quizzCourant.scoreTotal.toFixed(1) + " / " + calculerScoreMax();
 
-        const button = document.getElementById("boutonValider");
-        button.style.display = "none";
-        const buttonContinue = document.getElementById("boutonContinuer");
-        buttonContinue.style.display = "inline";
-        quizzCourant.questionSuivante();
-    }
+if(quizzCourant.estDerniereQuestion()){
+    gererAffichageBoutons({
+        boutonValider: false,
+        boutonAnnuler: false,
+        boutonContinuer: false,
+        boutonTerminer: true
 
+    })
 
-
+}else{
+    gererAffichageBoutons({
+        boutonValider: false,
+        boutonAnnuler: true,
+        boutonContinuer: true,
+        boutonTerminer: false
+    });
 }
 
 
+    }
 
-
-//Afficchage et gestion de l'application
-
-
+function calculerScoreMax() {
+    let total = 0;
+    for (let q of quizzCourant._questionsSelectionnees) {
+        total += q.valeur;
+    }
+    return total;
+}
 
 
 
@@ -166,7 +177,6 @@ function afficherIntroduction() {
         hidden.style.display = "none"; // on cache l'intro
         afficherQuestions();          // on lance la première question
     });
-    console.log("hey");
 }
 
 
@@ -176,24 +186,14 @@ function connecterGestionnaires() {
     const valid = document.getElementById("boutonValider");
     const continuer = document.getElementById("boutonContinuer");
     const annuler = document.getElementById("boutonAnnuler");
+    const terminer = document.getElementById("boutonTerminer");
 
-    valid.addEventListener("click", function () {
-    verifierReponses();
-       // alert('Ça marche !');
+    valid.addEventListener("click", verifierReponses);
+
+    continuer.addEventListener("click", function () {
+        quizzCourant.questionSuivante();
+        afficherQuestions();
     });
-    if( !quizzCourant.estDerniereQuestion()){
-
-    continuer.addEventListener("click", function (){
-            afficherQuestions();
-
-    })
-
-
-
-    }//else{
-    //         continuer.style.display= "none";
-    //         annuler.style.display = "none";
-    //     }
 
     annuler.addEventListener("click",  () => {
         document.getElementById("displayquest").style.display = "none";
@@ -201,13 +201,15 @@ function connecterGestionnaires() {
         annuler.style.display = "none";
         document.getElementById("respon").style.display = "none";
         afficherIntroduction();
-    })
-        console.log(quizzCourant.indexCourant);
+    });
 
+    terminer.addEventListener("click", () =>{
+        viderContenue();
+        afficherResultats();
+    });
 }
 function init() {
     // Le code qui ne doit être exécuté qu'une seule fois.
-    console.log("🔄 Chargement des questions...");
 
     // Le code qui ne doit être exécuté qu'une seule fois.
     for ( let cle in tabAssQuestions){
@@ -222,10 +224,6 @@ function init() {
         objetQuestion.melangerReponses();
         poolQuestions.push(objetQuestion);
     }
-    console.log(`${poolQuestions.length} questions chargées dans le pool`);
-
-    console.log("Première question:", poolQuestions[0].question);
-    console.log("Ses réponses:", poolQuestions[0].reponses);
      quizzCourant = new Quiz(poolQuestions, NBR_QUESTION_QUIZ); // maintenant seulement
 
     verroulle("verrouiller");
@@ -233,9 +231,7 @@ function init() {
 
 // Connecter les gestionnaires d'événements
 init();
-
 connecterGestionnaires();
-
 
 //Point d'entrée
 afficherIntroduction();

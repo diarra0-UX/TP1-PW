@@ -76,7 +76,6 @@ class Question {
             let temp = coupleRepVal[i];   // garder l’ancien élément i
             coupleRepVal[i] = coupleRepVal[j];  // mettre j à la place de i
             coupleRepVal[j] = temp;
-            console.log(coupleRepVal);
         }
         //  Remettre dans _reponses et _solution
         for (let i = 0; i < coupleRepVal.length; i++) {

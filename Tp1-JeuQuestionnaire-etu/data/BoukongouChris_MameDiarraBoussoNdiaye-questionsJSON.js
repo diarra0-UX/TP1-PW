@@ -13,7 +13,7 @@ let tabAssQuestions =
                 "À ouvrir une fenêtre avec le texte indiqué et le bouton 'OK'",
                 "À fermer le navigateur web avec un message d'avertissement",
             ],
-            "solution": [-0.25,-0.25,-0.25,2,-0.25],
+            "solution": [-0.5,-0.5,-0.5,2,-0.5],
             "valeur": 2,
             "reprise": 0,
         },
