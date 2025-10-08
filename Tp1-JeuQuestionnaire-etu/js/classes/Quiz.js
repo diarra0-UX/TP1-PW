@@ -28,7 +28,9 @@ class Quiz {
     get nombreTotalQuestions() {
         return this._nbrQuestion;
     }
-
+    get questionsSelectionnees() {
+        return this._questionsSelectionnees;
+    }
     get scoreTotal() {
         return this._scoreTotal;
     }

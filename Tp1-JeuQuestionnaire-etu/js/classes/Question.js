@@ -42,11 +42,6 @@ class Question {
         return this._valeur;
     }
 
-
-    get essais() {
-        return this._essais;
-    }
-
     get pointsObtenus() {
         return this._pointsObtenus;
     }
@@ -81,7 +76,6 @@ class Question {
         for (let i = 0; i < coupleRepVal.length; i++) {
             this._reponses[i] = coupleRepVal[i].reponse;
             this._solution[i] = coupleRepVal[i].points;
-
         }
     }
 
@@ -131,7 +125,7 @@ class Question {
                 pointsTotal += this._solution[i];
             }
         }
-        this._pointsObtenus = pointsTotal / 100 * this._valeur;
+        this._pointsObtenus = pointsTotal; // pointsTotal / 100 * this._valeur;
         this._essais++;
         return tab;
     }
