@@ -16,7 +16,11 @@ function afficherResultats() {
 // afficher le résulat final.
     let monDiv = document.getElementById("contenu");
     const ret = document.createElement("p");
-    ret.innerHTML = "test";
+    let final = quizzCourant.scoreTotal.toFixed(2);
+    let sc = calculerScoreMax();
+    let calculNotePerCent = ((final/sc)*100);
+    let encourage = quizzCourant.determinerEncouragement(calculNotePerCent)
+    ret.innerHTML = `vous avez ${final}/${sc}, ce qui vous fait une note de ${calculNotePerCent.toFixed(2)}. ${encourage}  `;
     monDiv.appendChild(ret);
 
 }
