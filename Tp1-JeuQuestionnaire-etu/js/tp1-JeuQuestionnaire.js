@@ -22,6 +22,14 @@ function afficherResultats() {
     let encourage = quizzCourant.determinerEncouragement(calculNotePerCent);
     ret.innerHTML = `vous avez ${final}/${sc}, ce qui vous fait une note de ${calculNotePerCent.toFixed(2)}%. ${encourage}  `;
     monDiv.appendChild(ret);
+    gererAffichageBoutons({
+        boutonValider: false,
+        boutonAnnuler: false,
+        boutonContinuer: false,
+        boutonTerminer: false,
+        boutonRejouer: true,
+        boutonAbandon: true
+    });
 
 }
 
@@ -78,7 +86,9 @@ function afficherQuestions() {
         boutonValider: true,
         boutonAnnuler: true,
         boutonContinuer: false,
-        boutonTerminer: false
+        boutonTerminer: false,
+        boutonRejouer: false,
+        boutonAbandon: false
     });
 
 }
@@ -127,7 +137,9 @@ function verifierReponses() {
             boutonValider: false,
             boutonAnnuler: false,
             boutonContinuer: false,
-            boutonTerminer: true
+            boutonTerminer: true,
+            boutonRejouer: false,
+            boutonAbandon: false
 
         })
 
@@ -136,7 +148,9 @@ function verifierReponses() {
             boutonValider: false,
             boutonAnnuler: true,
             boutonContinuer: true,
-            boutonTerminer: false
+            boutonTerminer: false,
+            boutonRejouer: false,
+            boutonAbandon: false
         });
     }
 
@@ -166,6 +180,9 @@ function connecterGestionnaires() {
     const continuer = document.getElementById("boutonContinuer");
     const annuler = document.getElementById("boutonAnnuler");
     const terminer = document.getElementById("boutonTerminer");
+    const rejouer = document.getElementById("boutonRejouer");
+    const abandon = document.getElementById("boutonAbandon");
+
 
     valid.addEventListener("click", verifierReponses);
 
@@ -181,7 +198,9 @@ function connecterGestionnaires() {
             boutonValider: false,
             boutonAnnuler: false,
             boutonContinuer: false,
-            boutonTerminer: false
+            boutonTerminer: false,
+            boutonRejouer: false,
+            boutonAbandon: false
         });
 
         // Réinitialiser le quiz
@@ -193,6 +212,42 @@ function connecterGestionnaires() {
     terminer.addEventListener("click", () => {
         viderContenue();
         afficherResultats();
+    });
+
+    rejouer.addEventListener("click", () => {
+        viderContenue();
+
+        gererAffichageBoutons({
+            boutonValider: false,
+            boutonAnnuler: false,
+            boutonContinuer: false,
+            boutonTerminer: false,
+            boutonRejouer: false,
+            boutonAbandon: false
+        });
+
+        // Réinitialiser le quiz
+        quizzCourant = new Quiz(poolQuestions, NBR_QUESTION_QUIZ);
+        afficherQuestions();
+
+    });
+
+    abandon.addEventListener("click", () => {
+        viderContenue();
+        // Cacher tous les boutons du quiz
+        gererAffichageBoutons({
+            boutonValider: false,
+            boutonAnnuler: false,
+            boutonContinuer: false,
+            boutonTerminer: false,
+            boutonRejouer: false,
+            boutonAbandon: false
+        });
+
+        // Réinitialiser le quiz
+        quizzCourant = new Quiz(poolQuestions, NBR_QUESTION_QUIZ);
+
+        afficherIntroduction();
     });
 }
 
