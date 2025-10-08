@@ -79,18 +79,18 @@ class Quiz {
      * @returns {string}
      */
     determinerEncouragement(score) {
-        if(score == 100){
-            return "A++";
-        }else if(score >= 90){
-            return "A";
-        }else if(score >= 80){
-            return "B";
-        }else if(score >= 70){
-            return "C";
-        }else if(score >= 60){
-            return "D";
+        if(score >= 95 && score === 100){
+            return "Félicitation!!!";
+        }else if(score >= 85 &&  score <= 94.99){
+            return "C'est très bien, continuez sur cette lancée.";
+        }else if(score >= 70 &&  score <= 84.99){
+            return "C'est bien, bien que il y a des détails à corriger.";
+        }else if(score >= 60 && score <= 69.99){
+            return "Vous êtez juste, ça manque de consistance malgré de bonne base en Javascript.";
+        }else if(score >= 30 && score <= 59){
+            return "C'est faible, vous pouvez faire mieux j'en suis sûr!";
         }else{
-            return "F";
+            return "C'est très faible, vous devez revoir vos cours en plus de suivre des cours particulier de javascript!";
         }
 
     }
