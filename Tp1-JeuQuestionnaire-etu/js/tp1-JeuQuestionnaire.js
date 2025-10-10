@@ -130,6 +130,7 @@ function verifierReponses() {
     quizzCourant.ajouterPoints(questionCourante.pointsObtenus);
 
     // Mettre à jour le score affiché
+
     document.getElementById("score").textContent = quizzCourant.scoreTotal.toFixed(2) + " / " + calculerScoreMax();
     console.log(calculerScoreMax());
     if (quizzCourant.estDerniereQuestion()) {
